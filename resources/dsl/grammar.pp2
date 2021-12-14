@@ -1,0 +1,83 @@
+
+%token  T_STRING_LITERAL        (L?)"([^"\\]*(?:\\.[^"\\]*)*)"
+%token  T_FLOAT_LITERAL         \-?(?:[1-9]\d*|[0-9])\.(?:[1-9]\d*|[0-9])
+%token  T_INT_LITERAL           \-?[1-9]\d*|[0-9]
+%token  T_BOOL_LITERAL          (?i)(?:true|false)
+%token  T_ENDIANNESS_LITERAL    (?i)(?:le|be|me)
+%token  T_NULL_LITERAL          (?i)(?:null)
+%token  T_NAME                  [a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*
+
+%token  T_LT                    <
+%token  T_GT                    >
+%token  T_COMMA                 ,
+%token  T_DOUBLE_COLON          ::
+%token  T_NS_DELIMITER          \\
+
+%skip   T_WHITESPACE            \s+
+%skip   T_BLOCK_COMMENT         \h*/\*.*?\*/\h*
+
+%pragma root                    TypeStmt
+
+Name -> { return Node\Name::parse($children); }
+  : ::T_NS_DELIMITER::? <T_NAME> (::T_NS_DELIMITER:: <T_NAME>)*
+  ;
+
+TypeStmt -> {
+    return new Node\Stmt\TypeStmt(
+        offset: $offset,
+        name: $children[0],
+        args: $children[1] ?? [],
+    );
+}
+  : Name() TypeStmtArgs()?
+  ;
+
+
+TypeStmtArgs -> { return new \ArrayIterator($children); }
+  : ::T_LT::
+      TypeStmtArg() (::T_COMMA:: TypeStmtArg())*
+    ::T_GT::
+  ;
+
+TypeStmtArg
+  : Literal()
+  | TypeStmt()
+  ;
+
+Literal
+  : StringLiteral()
+  | FloatLiteral()
+  | IntLiteral()
+  | EndiannessLiteral()
+  | BoolLiteral()
+  | NullLiteral()
+  | ClassConstLiteral()
+  ;
+
+StringLiteral -> { return Node\Literal\StringLiteral::parse($token); }
+  : <T_STRING_LITERAL>
+  ;
+
+FloatLiteral -> { return Node\Literal\FloatLiteral::parse($token); }
+  : <T_FLOAT_LITERAL>
+  ;
+
+IntLiteral -> { return Node\Literal\IntLiteral::parse($token); }
+  : <T_INT_LITERAL>
+  ;
+
+BoolLiteral -> { return Node\Literal\BoolLiteral::parse($token); }
+  : <T_BOOL_LITERAL>
+  ;
+
+EndiannessLiteral -> { return Node\Literal\EndiannessLiteral::parse($token); }
+  : <T_ENDIANNESS_LITERAL>
+  ;
+
+NullLiteral -> { return Node\Literal\NullLiteral::parse($token); }
+  : <T_NULL_LITERAL>
+  ;
+
+ClassConstLiteral -> { return Node\Literal\ClassConstLiteral::parse($children[0], $children[1]); }
+  : Name() ::T_DOUBLE_COLON:: <T_NAME>
+  ;

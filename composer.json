@@ -1,0 +1,51 @@
+{
+    "name": "serafim/bin-stream",
+    "type": "library",
+    "description": "Struct data mapper library",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/SerafimArts/BinStream/issues",
+        "source": "https://github.com/SerafimArts/BinStream"
+    },
+    "authors": [
+        {
+            "name": "Kirill Nesmeyanov",
+            "email": "nesk@xakep.ru"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "phplrt/lexer": "^3.1",
+        "phplrt/parser": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Serafim\\BinStream\\": "src"
+        }
+    },
+    "require-dev": {
+        "phplrt/phplrt": "^3.2",
+        "phpunit/phpunit": "^9.5",
+        "symfony/var-dumper": "^4.3|^5.0|^6.0",
+        "vimeo/psalm": "^4.15"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Serafim\\BinStream\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "psalm": "psalm --no-cache",
+        "phpunit": "phpunit --testox"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

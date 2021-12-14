@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="1"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <issueHandlers>
+        <RedundantCondition errorLevel="suppress"/>
+        <RedundantCast errorLevel="suppress"/>
+    </issueHandlers>
+    <projectFiles>
+        <directory name="libs/contracts/ast/src" />
+        <directory name="libs/contracts/buffer/src" />
+        <directory name="libs/contracts/grammar/src" />
+        <directory name="libs/contracts/lexer/src" />
+        <directory name="libs/contracts/parser/src" />
+        <directory name="libs/contracts/position/src" />
+        <directory name="libs/contracts/source/src" />
+
+        <directory name="libs/buffer/src" />
+        <!--<directory name="libs/compiler/src" />-->
+        <directory name="libs/exception/src" />
+        <directory name="libs/grammar/src" />
+        <directory name="libs/interval/src" />
+        <directory name="libs/lexer/src" />
+        <!--<directory name="libs/parser/src" />-->
+        <directory name="libs/position/src" />
+        <!--<directory name="libs/source/src" />-->
+        <!--<directory name="libs/visitor/src" />-->
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+</psalm>
