@@ -113,6 +113,10 @@ $writer->writeAs($data, 'uint');
 | `Serafim\BinStream\Type\UInt32Type`    | `uint32`                  |
 | `Serafim\BinStream\Type\UInt64Type`    | `uint64`                  |
 
+> Please note that such types as `int`, `size_t` or `ptrdiff_t` are
+> deliberately not defined as alias, since they are platform-dependent and
+> differ with different OS and/or PHP bitness.
+
 ### Custom Types
 
 ```php
