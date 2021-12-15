@@ -1,7 +1,14 @@
-.idea/
-vendor/
-composer.phar
-composer.lock
-.phpunit.result.cache
+# OS
 .DS_Store
 Thumbs.db
+
+# IDE and local environment
+/.idea/
+
+# Packages
+/composer.phar
+/composer.lock
+/vendor/
+
+# Tests
+.phpunit.result.cache
