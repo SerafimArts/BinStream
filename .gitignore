@@ -1,7 +1,14 @@
-.idea/
-vendor/
+# IDE
+/.idea/
+
+# Composer
+/vendor/
 composer.phar
 composer.lock
+
+# Tests
 .phpunit.result.cache
+
+# OS
 .DS_Store
 Thumbs.db
