@@ -25,8 +25,10 @@ use Serafim\BinStream\Type\Int32Type;
 use Serafim\BinStream\Type\Int64Type;
 use Serafim\BinStream\Type\Int8Type;
 use Serafim\BinStream\Type\IntType;
+use Serafim\BinStream\Type\IntTypeInterface;
 use Serafim\BinStream\Type\Repository;
 use Serafim\BinStream\Type\StringType;
+use Serafim\BinStream\Type\StringTypeInterface;
 use Serafim\BinStream\Type\TimestampType;
 use Serafim\BinStream\Type\TypeInterface;
 use Serafim\BinStream\Type\UInt16Type;
@@ -74,9 +76,12 @@ final class Reader extends Stream implements ReadableStreamInterface
     }
 
     /**
-     * @param class-string<TypeInterface>|TypeInterface $type
-     * @return mixed
+     * @template TReturn of mixed
+     *
+     * @param class-string<TypeInterface<TReturn>>|TypeInterface<TReturn> $type
+     * @return TReturn
      * @throws \Throwable
+     * @psalm-suppress MixedInferredReturnType
      */
     public function readAs(string|TypeInterface $type): mixed
     {
@@ -184,7 +189,7 @@ final class Reader extends Stream implements ReadableStreamInterface
 
     /**
      * @param int $size
-     * @return non-empty-string
+     * @return string
      * @throws \Throwable
      */
     public function string(int $size = StringType::STRING_AUTO_SIZE): string
@@ -197,23 +202,25 @@ final class Reader extends Stream implements ReadableStreamInterface
     }
 
     /**
-     * @param IntType|class-string<IntType> $type
+     * @param IntTypeInterface|class-string<IntTypeInterface> $type
      * @param bool $immutable
      * @return \DateTimeInterface
      * @throws \Throwable
      */
-    public function timestamp(IntType|string $type = new UInt32Type(), bool $immutable = true): \DateTimeInterface
-    {
+    public function timestamp(
+        IntTypeInterface|string $type = new UInt32Type(),
+        bool $immutable = true
+    ): \DateTimeInterface {
         return $this->readAs(new TimestampType($type, $immutable));
     }
 
     /**
-     * @param class-string $enum
-     * @param IntType|class-string<IntType> $type
+     * @param class-string<\BackedEnum> $enum
+     * @param IntTypeInterface|StringTypeInterface|class-string<IntTypeInterface>|class-string<StringTypeInterface> $type
      * @return \BackedEnum
      * @throws \Throwable
      */
-    public function enum(string $enum, IntType|string $type = new UInt32Type()): \BackedEnum
+    public function enum(string $enum, IntTypeInterface|StringTypeInterface|string $type = new UInt32Type()): \BackedEnum
     {
         return $this->readAs(new EnumType($enum, $type));
     }
@@ -222,7 +229,7 @@ final class Reader extends Stream implements ReadableStreamInterface
      * @template T of mixed
      * @param TypeInterface<T>|class-string<TypeInterface<T>> $type
      * @param positive-int $count
-     * @return array<T>
+     * @return list<T>
      * @throws \Throwable
      */
     public function array(TypeInterface|string $type, int $count = 1): array
@@ -232,7 +239,7 @@ final class Reader extends Stream implements ReadableStreamInterface
 
     /**
      * @param positive-int $count
-     * @return array<bool>
+     * @return list<bool>
      * @throws \Throwable
      */
     public function bitmask(int $count = 1): array

@@ -16,22 +16,22 @@ use Serafim\BinStream\Stream\WritableStreamInterface;
 
 /**
  * @template T of \BackedEnum
- * @template-extends Type<T>
+ * @template-implements ObjectTypeInterface<T>
  */
-class EnumType implements TypeInterface
+class EnumType implements ObjectTypeInterface
 {
     /**
-     * @var TypeInterface
+     * @var IntTypeInterface|StringTypeInterface
      */
-    public readonly TypeInterface $type;
+    public readonly IntTypeInterface|StringTypeInterface $type;
 
     /**
      * @param class-string<T> $enum
-     * @param TypeInterface|class-string<TypeInterface> $type
+     * @param IntTypeInterface|StringTypeInterface|class-string<IntTypeInterface>|class-string<StringTypeInterface> $type
      */
     public function __construct(
         public readonly string $enum,
-        TypeInterface|string $type = new UInt32Type()
+        IntTypeInterface|StringTypeInterface|string $type = new UInt32Type()
     ) {
         $this->type = \is_string($type) ? new $type() : $type;
     }

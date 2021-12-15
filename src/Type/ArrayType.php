@@ -16,9 +16,9 @@ use Serafim\BinStream\Stream\WritableStreamInterface;
 
 /**
  * @template T of mixed
- * @template-extends Type<list<T>>
+ * @template-implements ArrayTypeInterface<T, list>
  */
-class ArrayType extends Type
+class ArrayType implements ArrayTypeInterface
 {
     /**
      * @var int
@@ -39,8 +39,6 @@ class ArrayType extends Type
         public readonly int $count = self::ARRAY_AUTO_SIZE
     ) {
         $this->type = \is_string($type) ? new $type() : $type;
-
-        parent::__construct($this->count);
     }
 
     /**
@@ -71,12 +69,12 @@ class ArrayType extends Type
             'Expected list type, but ' . \get_debug_type($data) . ' given'
         ));
 
-        if ($this->size === 0) {
+        if ($this->count === 0) {
             return 0;
         }
 
-        if ($this->size > 0) {
-            $data = \array_slice($data, 0, $this->size);
+        if ($this->count > 0) {
+            $data = \array_slice($data, 0, $this->count);
         }
 
         $size = 0;

@@ -15,26 +15,24 @@ use Serafim\BinStream\Stream\ReadableStreamInterface;
 use Serafim\BinStream\Stream\WritableStreamInterface;
 
 /**
- * @template-extends Type<\DateTimeInterface>
+ * @template-extends ObjectTypeInterface<\DateTimeInterface>
  */
-class TimestampType extends Type
+class TimestampType implements ObjectTypeInterface
 {
     /**
-     * @var IntType
+     * @var IntTypeInterface
      */
-    public readonly IntType $type;
+    public readonly IntTypeInterface $type;
 
     /**
-     * @param IntType|class-string<IntType> $type
+     * @param IntTypeInterface|class-string<IntTypeInterface> $type
      * @param bool $immutable
      */
     public function __construct(
-        IntType|string $type = new UInt32Type(),
+        IntTypeInterface|string $type = new UInt32Type(),
         private readonly bool $immutable = true,
     ) {
         $this->type = \is_string($type) ? new $type() : $type;
-
-        parent::__construct($this->type->size);
     }
 
     /**

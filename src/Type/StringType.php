@@ -14,10 +14,7 @@ namespace Serafim\BinStream\Type;
 use Serafim\BinStream\Stream\ReadableStreamInterface;
 use Serafim\BinStream\Stream\WritableStreamInterface;
 
-/**
- * @template-extends Type<non-empty-string>
- */
-class StringType extends Type
+class StringType implements StringTypeInterface
 {
     /**
      * @var int
@@ -27,9 +24,9 @@ class StringType extends Type
     /**
      * @param int $size
      */
-    public function __construct(int $size = self::STRING_AUTO_SIZE)
-    {
-        parent::__construct($size ?? self::STRING_AUTO_SIZE);
+    public function __construct(
+        public readonly int $size = self::STRING_AUTO_SIZE
+    ) {
     }
 
     /**

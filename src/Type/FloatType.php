@@ -11,15 +11,15 @@ declare(strict_types=1);
 
 namespace Serafim\BinStream\Type;
 
-use Serafim\BinStream\Stream\ReadableStreamInterface;
-
 /**
- * @template-extends Type<float>
+ * @template-extends FloatTypeInterface<float>
  */
-abstract class FloatType extends Type
+abstract class FloatType implements FloatTypeInterface
 {
     /**
-     * {@inheritDoc}
+     * @param positive-int $size
      */
-    abstract public function parse(ReadableStreamInterface $stream): float;
+    public function __construct(
+        public readonly int $size,
+    ) {}
 }

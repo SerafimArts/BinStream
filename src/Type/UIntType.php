@@ -11,10 +11,9 @@ declare(strict_types=1);
 
 namespace Serafim\BinStream\Type;
 
-use Serafim\BinStream\Stream\ReadableStreamInterface;
-
 /**
- * @template-extends Type<positive-int|0>
+ * @template T of positive-int|0
+ * @template-extends IntType<T>
  */
 abstract class UIntType extends IntType
 {
@@ -34,9 +33,4 @@ abstract class UIntType extends IntType
 
         parent::__construct($size);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    abstract public function parse(ReadableStreamInterface $stream): int;
 }

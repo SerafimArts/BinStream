@@ -11,15 +11,16 @@ declare(strict_types=1);
 
 namespace Serafim\BinStream\Type;
 
-use Serafim\BinStream\Stream\ReadableStreamInterface;
-
 /**
- * @template-extends Type<int>
+ * @template T of int
+ * @template-implements IntTypeInterface<T>
  */
-abstract class IntType extends Type
+abstract class IntType implements IntTypeInterface
 {
     /**
-     * {@inheritDoc}
+     * @param positive-int $size
      */
-    abstract public function parse(ReadableStreamInterface $stream): int;
+    public function __construct(
+        public readonly int $size,
+    ) {}
 }

@@ -16,37 +16,35 @@ use Serafim\BinStream\Stream\WritableStreamInterface;
 
 /**
  * @template T of \BackedEnum
- * @template-extends Type<T>
+ * @template-implements ArrayTypeInterface<T, list>
  */
-class FlagsType extends Type
+class FlagsType implements ArrayTypeInterface
 {
     /**
-     * @var IntType
+     * @var IntTypeInterface
      */
-    public readonly IntType $type;
+    public readonly IntTypeInterface $type;
 
     /**
      * @param class-string<T> $enum
-     * @param IntType|class-string<IntType> $type
+     * @param IntTypeInterface|class-string<IntTypeInterface> $type
      */
     public function __construct(
         public readonly string $enum,
-        IntType|string $type = new UInt8Type()
+        IntTypeInterface|string $type = new UInt8Type()
     ) {
         $this->type = \is_string($type) ? new $type() : $type;
-
-        parent::__construct($type->size);
     }
 
     /**
-     * @param ReadableStreamInterface $stream
-     * @return array<T>
+     * {@inheritDoc}
      */
     public function parse(ReadableStreamInterface $stream): array
     {
         $result = [];
         $actual = $this->type->parse($stream);
 
+        /** @var \BackedEnum $case */
         foreach (($this->enum)::cases() as $case) {
             if (($actual & $case->value) === $case->value) {
                 $result[] = $case;
@@ -57,9 +55,7 @@ class FlagsType extends Type
     }
 
     /**
-     * @param array<T> $data
-     * @param WritableStreamInterface $stream
-     * @return positive-int|0
+     * {@inheritDoc}
      */
     public function serialize(mixed $data, WritableStreamInterface $stream): int
     {

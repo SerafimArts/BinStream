@@ -25,8 +25,10 @@ use Serafim\BinStream\Type\Int32Type;
 use Serafim\BinStream\Type\Int64Type;
 use Serafim\BinStream\Type\Int8Type;
 use Serafim\BinStream\Type\IntType;
+use Serafim\BinStream\Type\IntTypeInterface;
 use Serafim\BinStream\Type\Repository;
 use Serafim\BinStream\Type\StringType;
+use Serafim\BinStream\Type\StringTypeInterface;
 use Serafim\BinStream\Type\TimestampType;
 use Serafim\BinStream\Type\TypeInterface;
 use Serafim\BinStream\Type\UInt16Type;
@@ -209,29 +211,29 @@ final class Writer extends Stream implements WritableStreamInterface
 
     /**
      * @param \DateTimeInterface $date
-     * @param IntType|class-string<IntType> $type
+     * @param IntTypeInterface|class-string<IntTypeInterface> $type
      * @return positive-int
      * @throws \Throwable
      */
-    public function timestamp(\DateTimeInterface $date, IntType|string $type = new UInt32Type()): int
+    public function timestamp(\DateTimeInterface $date, IntTypeInterface|string $type = new UInt32Type()): int
     {
         return $this->writeAs($date, new TimestampType($type));
     }
 
     /**
      * @param \BackedEnum $case
-     * @param IntType|class-string<IntType> $type
+     * @param IntTypeInterface|StringTypeInterface|class-string<IntTypeInterface>|class-string<StringTypeInterface> $type
      * @return positive-int
      * @throws \Throwable
      */
-    public function enum(\BackedEnum $case, IntType|string $type = new UInt32Type()): int
+    public function enum(\BackedEnum $case, IntTypeInterface|StringTypeInterface|string $type = new UInt32Type()): int
     {
         return $this->writeAs($case, new EnumType($case::class, $type));
     }
 
     /**
      * @template T of mixed
-     * @param array<T> $array
+     * @param list<T> $array
      * @param TypeInterface<T>|class-string<TypeInterface<T>> $type
      * @return positive-int
      * @throws \Throwable
@@ -242,7 +244,7 @@ final class Writer extends Stream implements WritableStreamInterface
     }
 
     /**
-     * @param array<bool> $mask
+     * @param list<bool> $mask
      * @return positive-int
      * @throws \Throwable
      */
