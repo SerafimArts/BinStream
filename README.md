@@ -146,9 +146,10 @@ class ExampleInt8Type implements TypeInterface
 ## DSL
 
 In typed `readAs` and `writeAs` methods, you can use DSL which contains the
-following format: `TYPE_NAME<CONSTRUCTOR_ARGUMENT_1, CONSTRUCTOR_ARGUMENT_2>`.
+following format: `TYPE_NAME<CONSTRUCTOR_ARGUMENT_1, [CONSTRUCTOR_ARGUMENT_2, [...]]>`.
 
-For example `array<int8, 42>` is equals to `new ArrayType(new Int8Type(), 42)`.
+For example `array<int8, 42>` is equals to `new ArrayType(new Int8Type(), 42)` and
+`\Path\To\Class<"string\"asd", true>` is equals to `new Path\To\Class('string"asd', true)`
 
 ```php
 use Serafim\BinStream\Reader;
