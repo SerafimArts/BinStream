@@ -109,9 +109,9 @@ $writer->writeAs($data, 'uint');
 | `Serafim\BinStream\Type\Int32Type`     | `int32`                   |
 | `Serafim\BinStream\Type\Int64Type`     | `int64`                   |
 | `Serafim\BinStream\Type\UInt8Type`     | `uint8`                   |
-| `Serafim\BinStream\Type\UInt16Typ`     | `uint16`                  |
-| `Serafim\BinStream\Type\UInt32Typ`     | `uint32`                  |
-| `Serafim\BinStream\Type\UInt64Typ`     | `uint64`                  |
+| `Serafim\BinStream\Type\UInt16Type`    | `uint16`                  |
+| `Serafim\BinStream\Type\UInt32Type`    | `uint32`                  |
+| `Serafim\BinStream\Type\UInt64Type`    | `uint64`                  |
 
 ### Custom Types
 
