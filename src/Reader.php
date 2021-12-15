@@ -18,6 +18,7 @@ use Serafim\BinStream\Type\BitMaskType;
 use Serafim\BinStream\Type\CharType;
 use Serafim\BinStream\Type\Endianness;
 use Serafim\BinStream\Type\EnumType;
+use Serafim\BinStream\Type\FlagsType;
 use Serafim\BinStream\Type\Float32Type;
 use Serafim\BinStream\Type\Float64Type;
 use Serafim\BinStream\Type\Int16Type;
@@ -215,14 +216,29 @@ final class Reader extends Stream implements ReadableStreamInterface
     }
 
     /**
-     * @param class-string<\BackedEnum> $enum
+     * @template T of \BackedEnum
+     *
+     * @param class-string<T> $enum
      * @param IntTypeInterface|StringTypeInterface|class-string<IntTypeInterface>|class-string<StringTypeInterface> $type
-     * @return \BackedEnum
+     * @return T
      * @throws \Throwable
      */
     public function enum(string $enum, IntTypeInterface|StringTypeInterface|string $type = new UInt32Type()): \BackedEnum
     {
         return $this->readAs(new EnumType($enum, $type));
+    }
+
+    /**
+     * @template T of \BackedEnum
+     *
+     * @param class-string<T> $enum
+     * @param IntTypeInterface|class-string<IntTypeInterface> $type
+     * @return list<T>
+     * @throws \Throwable
+     */
+    public function flags(string $enum, IntTypeInterface|string $type): array
+    {
+        return $this->readAs(new FlagsType($enum, $type));
     }
 
     /**

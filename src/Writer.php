@@ -18,6 +18,7 @@ use Serafim\BinStream\Type\BitMaskType;
 use Serafim\BinStream\Type\CharType;
 use Serafim\BinStream\Type\Endianness;
 use Serafim\BinStream\Type\EnumType;
+use Serafim\BinStream\Type\FlagsType;
 use Serafim\BinStream\Type\Float32Type;
 use Serafim\BinStream\Type\Float64Type;
 use Serafim\BinStream\Type\Int16Type;
@@ -229,6 +230,23 @@ final class Writer extends Stream implements WritableStreamInterface
     public function enum(\BackedEnum $case, IntTypeInterface|StringTypeInterface|string $type = new UInt32Type()): int
     {
         return $this->writeAs($case, new EnumType($case::class, $type));
+    }
+
+    /**
+     * @template T of \BackedEnum
+     *
+     * @param list<T> $cases
+     * @param IntTypeInterface|class-string<IntTypeInterface> $type
+     * @return positive-int|0
+     * @throws \Throwable
+     */
+    public function flags(array $cases, IntTypeInterface|string $type): int
+    {
+        if (\count($cases) === 0) {
+            return 0;
+        }
+
+        return $this->writeAs($cases, new FlagsType(\reset($cases), $type));
     }
 
     /**
