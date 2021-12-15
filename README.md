@@ -30,7 +30,7 @@ $reader->seek(23, Seek::CURSOR);    // Seek to offset plus 23 (current + 23)
 $writer->seek(23, Seek::CURSOR);    //
 
 $reader->offset();                  // Returns current offset: int(46)
-$writer->offset();                  // R
+$writer->offset();                  //
 
 // Read and Write
 $reader->read(42);                  // Returns reading bytes: string(42) "..."
