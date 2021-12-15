@@ -70,6 +70,10 @@ $reader->readAs('bitmask');             // array(8) { 0 => bool(x), 1 => ... }
 $reader->readAs('bitmask<5>');          // array(40) { 0 => bool(x), 1 => ... }
 $reader->readAs('bitmask<-1>');         // array(0) {}  - Empty array
 
+// Flags: flags<[CLASS], [TYPE = uint8]>
+$reader->readAs('flags<PHP\Enum\Type>')         // array(x) { 0 => enum(PHP\Enum\Type::CASE), ... }
+$reader->readAs('flags<PHP\Enum\Type, uint32>') // array(x) { 0 => enum(PHP\Enum\Type::CASE), ... }
+
 // Char: char
 $reader->readAs('char');                // string(1) "X"
 
@@ -81,8 +85,6 @@ $reader->readAs('string<-1>');          // string(0) ""
 
 // Enum: enum<[CLASS], [TYPE = uint32]>
 $reader->readAs('enum<PHP\Enum\Type>');         // enum(PHP\Enum\Type::class)
-$reader->readAs('enum<"PHP\Enum\Type">');       // enum(PHP\Enum\Type::class)
-
 $reader->readAs('enum<PHP\Enum\Type, uint8>');  // enum(PHP\Enum\Type::class)
 
 // Timestamp: timestamp<[TYPE = uint32], [IMMUTABLE = true]>

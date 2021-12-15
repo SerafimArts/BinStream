@@ -19,22 +19,23 @@ class Repository implements RepositoryInterface
      * @var non-empty-array<class-string<TypeInterface>, non-empty-string|non-empty-array<non-empty-string>>
      */
     final public const DEFAULT_ALIASES = [
-        Type\ArrayType::class => 'array',
-        Type\BitMaskType::class => 'bitmask',
-        Type\CharType::class => 'char',
-        Type\StringType::class => 'string',
-        Type\EnumType::class => 'enum',
+        Type\ArrayType::class     => 'array',
+        Type\BitMaskType::class   => 'bitmask',
+        Type\CharType::class      => 'char',
+        Type\StringType::class    => 'string',
+        Type\EnumType::class      => 'enum',
+        Type\FlagsType::class     => 'flags',
         Type\TimestampType::class => ['timestamp', 'date'],
-        Type\Float32Type::class => ['float32', 'float'],
-        Type\Float64Type::class => ['float64', 'double'],
-        Type\Int8Type::class => ['int8'],
-        Type\Int16Type::class => ['int16', 'short'],
-        Type\Int32Type::class => ['int32', 'int'],
-        Type\Int64Type::class => ['int64', 'long'],
-        Type\UInt8Type::class => ['uint8'],
-        Type\UInt16Type::class => ['uint16', 'ushort'],
-        Type\UInt32Type::class => ['uint32', 'uint'],
-        Type\UInt64Type::class => ['uint64', 'ulong'],
+        Type\Float32Type::class   => ['float32', 'float'],
+        Type\Float64Type::class   => ['float64', 'double'],
+        Type\Int8Type::class      => 'int8',
+        Type\Int16Type::class     => 'int16',
+        Type\Int32Type::class     => 'int32',
+        Type\Int64Type::class     => 'int64',
+        Type\UInt8Type::class     => 'uint8',
+        Type\UInt16Type::class    => 'uint16',
+        Type\UInt32Type::class    => 'uint32',
+        Type\UInt64Type::class    => 'uint64',
     ];
 
     /**

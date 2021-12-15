@@ -15,7 +15,8 @@ use Serafim\BinStream\Stream\ReadableStreamInterface;
 use Serafim\BinStream\Stream\WritableStreamInterface;
 
 /**
- * @template-extends Type<\BackedEnum>
+ * @template T of \BackedEnum
+ * @template-extends Type<T>
  */
 class EnumType extends Type
 {
@@ -25,7 +26,7 @@ class EnumType extends Type
     public readonly IntType $type;
 
     /**
-     * @param class-string<\BackedEnum> $enum
+     * @param class-string<T> $enum
      * @param IntType|class-string<IntType> $type
      */
     public function __construct(
