@@ -26,7 +26,7 @@ class BoolLiteral extends Literal
 
     /**
      * @param TokenInterface $token
-     * @return static
+     * @return self
      */
     public static function parse(TokenInterface $token): self
     {

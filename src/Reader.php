@@ -13,8 +13,6 @@ namespace Serafim\BinStream;
 
 use Serafim\BinStream\Stream\ReadableResourceStream;
 use Serafim\BinStream\Stream\ReadableStreamInterface;
-use Serafim\BinStream\Stream\Seek;
-use Serafim\BinStream\Stream\StreamInterface;
 use Serafim\BinStream\Type\ArrayType;
 use Serafim\BinStream\Type\BitMaskType;
 use Serafim\BinStream\Type\CharType;
@@ -36,6 +34,9 @@ use Serafim\BinStream\Type\UInt32Type;
 use Serafim\BinStream\Type\UInt64Type;
 use Serafim\BinStream\Type\UInt8Type;
 
+/**
+ * @template-extends Stream<ReadableStreamInterface>
+ */
 final class Reader extends Stream implements ReadableStreamInterface
 {
     /**

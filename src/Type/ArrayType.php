@@ -32,7 +32,7 @@ class ArrayType extends Type
 
     /**
      * @param TypeInterface<T>|class-string<TypeInterface<T>> $type
-     * @param positive-int $count
+     * @param int $count
      */
     public function __construct(
         TypeInterface|string $type = new UInt8Type(),
@@ -55,6 +55,7 @@ class ArrayType extends Type
         $result = [];
 
         for ($i = 0; $i < $this->count; ++$i) {
+            /** @psalm-suppress MixedAssignment */
             $result[] = $this->type->parse($stream);
         }
 

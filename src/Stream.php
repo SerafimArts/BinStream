@@ -17,6 +17,9 @@ use Serafim\BinStream\Type\DslRepository;
 use Serafim\BinStream\Type\Repository;
 use Serafim\BinStream\Type\RepositoryInterface;
 
+/**
+ * @template TStream of StreamInterface
+ */
 abstract class Stream implements StreamInterface
 {
     /**
@@ -25,7 +28,7 @@ abstract class Stream implements StreamInterface
     public readonly RepositoryInterface $types;
 
     /**
-     * @param StreamInterface $stream
+     * @param TStream $stream
      * @param Repository $repository
      */
     public function __construct(

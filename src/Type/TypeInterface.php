@@ -28,7 +28,7 @@ interface TypeInterface
     /**
      * @param T $data
      * @param WritableStreamInterface $stream
-     * @return positive-int
+     * @return positive-int|0
      */
     public function serialize(mixed $data, WritableStreamInterface $stream): int;
 }

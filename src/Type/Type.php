@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 namespace Serafim\BinStream\Type;
 
-use Serafim\BinStream\Stream\ReadableStreamInterface;
-
 /**
  * @template T of mixed
  * @template-implements TypeInterface<T>
@@ -20,7 +18,7 @@ use Serafim\BinStream\Stream\ReadableStreamInterface;
 abstract class Type implements TypeInterface
 {
     /**
-     * @param positive-int $size
+     * @param int $size
      */
     public function __construct(
         public readonly int $size

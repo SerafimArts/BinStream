@@ -34,6 +34,9 @@ use Serafim\BinStream\Type\UInt32Type;
 use Serafim\BinStream\Type\UInt64Type;
 use Serafim\BinStream\Type\UInt8Type;
 
+/**
+ * @template-extends Stream<WritableStreamInterface>
+ */
 final class Writer extends Stream implements WritableStreamInterface
 {
     /**

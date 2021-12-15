@@ -20,7 +20,8 @@ use Serafim\BinStream\Stream\WritableStreamInterface;
 class BitMaskType extends ArrayType
 {
     /**
-     * @param positive-int $count
+     * @param int $count
+     * @psalm-suppress InvalidArgument
      */
     public function __construct(int $count = 1)
     {
@@ -34,8 +35,10 @@ class BitMaskType extends ArrayType
     {
         $result = [];
 
+        /** @var string $byte */
         foreach (parent::parse($stream) as $byte) {
             $bits = \str_pad(\decbin(\ord($byte)), 8, '0', \STR_PAD_LEFT);
+
             foreach (\str_split($bits) as $bit) {
                 $result[] = (bool)(int)$bit;
             }
@@ -53,6 +56,7 @@ class BitMaskType extends ArrayType
             'Expected list<bool> type, but ' . \get_debug_type($data) . ' given'
         ));
 
+        /** @var array<string> $bytes */
         $bytes = [];
 
         while ($data !== []) {
@@ -62,9 +66,10 @@ class BitMaskType extends ArrayType
                 $byte .= (int)(\array_shift($data) ?? false);
             }
 
-            $bytes[] = \chr(\bindec($byte));
+            $bytes[] = \chr((int)\bindec($byte));
         }
 
+        /** @psalm-suppress InvalidScalarArgument */
         return parent::serialize($bytes, $stream);
     }
 }
